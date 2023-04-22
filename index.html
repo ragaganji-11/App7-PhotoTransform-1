@@ -101,10 +101,30 @@
           /*  ++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
           /* PUT ANY CHANGES TO THE JAVASCRIPT HERE  */
-          
-          
-          
-          
+
+         var canvas2 = document.getElementById('myCanvas2');
+          var context2 = canvas2.getContext("2d");
+         
+          /*variables grab image data from the canvas*/
+          var imageData = context.getImageData(0, 0, 600, 500);
+          var data = imageData.data;
+         
+          /*stored array data is iterated, so that all of the data is changed to blues*/
+          for(var i = 0; i < data.length; i+= 4) {
+           //Create a "red" , "green" , and "blue" variable to store all pixels that correspond to those colors.
+           var red = data[i];
+           var green = data[i + 1];
+           var blue = data[i + 2];
+         
+           //sets red and green variables to 0, so that only blue is shown.
+           data[i] = 0;
+           data[i + 1] = 0;
+           data[i + 2] = blue;
+          }
+         
+         //Update canvas 2 context with the stored variables and modifications above.
+         context2.putImageData(imageData, 0, 0);
+               
         } // end of img.onload
         
         img.src = reader.result;
@@ -134,6 +154,7 @@
       </div>
       <div id="messageDisplayArea"></div>
       
+          <!--First Canvas (loads image) -->
       <canvas id="myCanvas" width=600 height=500 style="border:1px solid #d3d3d3;"></canvas>
       <script> /* This script initiates the cavas and puts the text on the canvas "myCanvas" */
         var canvas = document.getElementById('myCanvas');
@@ -142,6 +163,18 @@
         context.fillStyle = "black";
         context.fillText("Original image will go here", 10, 20);
       </script>
+     
+          <!--Second Canvas (Blue Image)-->
+           <canvas id="myCanvas" width=600 height=500 style="border:1px solid #d3d3d3;"></canvas>
+     <script>
+      var canvas2 = document.getElementById('myCanvas2');
+       var context2 = canvas.getContext("2d");
+      context2.font = '20pt Calibri';
+      context2.fillStyle = "black";
+      context2.fillText("blue image will go here", 10, 420);
+      </script>
+
+
 
     </div><!-- /content -->
     <div data-role="footer" data-position="fixed">
